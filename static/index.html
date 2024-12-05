@@ -6,19 +6,38 @@
   src: url("Skanaus-Display.otf") format("opentype");
 }
 
+body:not([data-phase="start"]) #signupForm,
+body:not([data-phase="sending"]) #sending,
+body:not([data-phase="sent"]) #afterSignup {
+  display: none;
+}
+
 </style>
+<body data-phase=start>
 <h1>Hex House NYE</h1>
 <form id=signupForm>
   <label>Email: <input name=email type=email required></input></label>
 </form>
+<div id=sending>
+  Sending…
+</div>
+<div id=afterSignup>
+  Ya good!
+</div>
 <script>
 
-signupForm.addEventListener('submit', e => {
+signupForm.addEventListener('submit', async e => {
   e.preventDefault();
-  fetch("/register", {
-    method: 'POST',
-    body: new FormData(e.target),
-  });
+  document.body.dataset.phase = 'sending';
+  try {
+    await fetch("/register", {
+      method: 'POST',
+      body: new FormData(e.target),
+    });
+    document.body.dataset.phase = 'sent';
+  } catch {
+    document.body.dataset.phase = 'start';
+  }
 });
 
 </script>

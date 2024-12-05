@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/s4y/reserve"
 )
@@ -19,7 +20,7 @@ func persist(obj interface{}) error {
 	mu.Lock()
 	defer mu.Unlock()
 
-	file, err := os.OpenFile("data.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile("../data.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return err
 	}
@@ -55,8 +56,11 @@ func main() {
 			return
 		}
 
-		email := r.FormValue("email")
-		fmt.Println(email)
+		persist(struct {
+			Timestamp string `json:"timestamp"`
+			IP        string `json:"ip"`
+			Email     string `json:"email"`
+		}{time.Now().UTC().String(), r.RemoteAddr, r.FormValue("email")})
 	})
 	log.Fatal(http.Serve(ln, nil))
 }
