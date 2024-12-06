@@ -1,29 +1,182 @@
 <!DOCTYPE html>
-<style>
 
-@font-face {
+<head></head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="assets/asciinema-player.css" />
+  <title>HEXNYE⏲2222000022225555</title>
+  <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100..700;1,100..700&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Pinyon+Script&display=swap');
+
+.montserrat-underline-<uniquifier> {
+  font-family: "Montserrat Underline", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+.pinyon-script-regular {
+  font-family: "Pinyon Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
   font-family: Skanaus;
-  src: url("Skanaus-Display.otf") format("opentype");
 }
 
-body:not([data-phase="start"]) #signupForm,
-body:not([data-phase="sending"]) #sending,
-body:not([data-phase="sent"]) #afterSignup {
-  display: none;
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-</style>
+h1 {
+  font-size: 2em;
+}
+
+.asciinema-player-theme-bla {
+  --term-color-foreground: #eceff4;
+  --term-color-background: #000000;
+
+  --term-color-0: #000000;
+  --term-color-1: #bf616a;
+  --term-color-2: #a3be8c;
+  --term-color-3: #ffffff;
+  --term-color-4: #81a1c1;
+  --term-color-5: #b48ead;
+  --term-color-6: #88c0d0;
+  --term-color-7: #eceff4;
+}
+
+    @font-face {
+      font-family: Skanaus;
+      src: url("Skanaus-Display.otf") format("opentype");
+    }
+    
+    body:not([data-phase="start"]) #signupForm,
+    body:not([data-phase="sending"]) #sending,
+    body:not([data-phase="sent"]) #afterSignup {
+      display: none;
+    }
+
+    body {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: 2em;
+}
+
+.center-container {
+  width: 20%;
+  display: block;
+  margin: auto;
+}
+
+p {
+  font-family:  "Times";
+  /* font-family:  "Garamond, Georgia, serif"; */
+  font-size: .7em;
+}
+
+.smaller {
+ font-size: .5em;
+ padding-bottom: 6em;
+}
+
+
+#demo {
+  /* padding-top: 1.5em; */
+}
+
+.dfont {
+  font-family: "Pinyon Script";
+}
+
+img {
+  height: auto;
+  max-width: 30%;
+  filter: grayscale(100%);
+  padding-bottom: 4em;
+}
+
+
+@media screen and (max-width : 480px) {
+  img {
+  height: auto;
+  max-width: 80%;
+}
+
+.center-container {
+  width: 60%;
+  display: block;
+  margin: auto;
+}
+}
+    
+    </style>
+</head>
+
+
 <body data-phase=start>
-<h1>Hex House NYE</h1>
+  <h1><span class="dfont">RSVP </span>&nbsp;⏲ HEXNYE</h1>
+  <p>
+    12-31-24 8PM TIL 1-1-25 ♡
+    <br>
+    ✧ Dresscode: <span class="dfont">timekeeper</span>
+    <br>
+    Free to RSVP til ☽ Dec 15th
+    <br>
+    ☎ Address emailed to guests
+
+
+  </p>
+<!-- <h1>22222⏲⏲⏲⏲⏲2222255555</h1> -->
+<div class="center-container">
+  <div id="demo"></div>
+  <script src="assets/asciinema-player.min.js"></script>
+  <script>
+    AsciinemaPlayer.create('assets/10.cast', document.getElementById('demo'), {
+      speed: 2,
+      idleTimeLimit: 1,
+      autoPlay: true,
+      loop: true,
+      preload: true,
+      controls: false,
+      // terminalFontSize: "big",
+      // fit: "both",
+      startAt: 4,
+      theme: 'bla',
+
+    });
+  </script>
+</div>
+
+
+
+
+
 <form id=signupForm>
-  <label>Email: <input name=email type=email required></input></label>
+  <label><span class="dfont">Your Email:</span> <input name=email type=email required></input></label>
 </form>
 <div id=sending>
   Sending…
 </div>
 <div id=afterSignup>
-  Ya good!
+  Thank you for your <span class="dfont">RSVP </span>&nbsp;⏲
 </div>
+
+<p class="smaller"><i>Send this page to your +1s</i></p>
+
+<img src="assets/ca.png"><br>
+<img src="assets/poster.gif">
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
 <script>
 
 signupForm.addEventListener('submit', async e => {
