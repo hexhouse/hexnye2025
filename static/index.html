@@ -262,7 +262,7 @@ font-size: 2em;
   Sending…
 </div>
 <div id=afterSignup>
-  Thank you for your <span class="dfont">RSVP </span>&nbsp;⏲
+  Thank you for your <span class="dfont">RSVP</span>&nbsp;<span><img id="timer-img" src="assets/timer.png"></span>
 </div>
 
 <p class="smaller"><i>Send this page to your +1s so they can rsvp</i></p>
@@ -346,32 +346,7 @@ font-size: 2em;
 
 <script>
 
-function isIOS() {
 
-return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-}
-
-
-
-if (isIOS()) {
-
-// Display content specific to iOS phones
-
-// console.log("This is an iOS device");
-const element = document.getElementById("mobile"); 
-
-// Set the display property to "none"
-element.style.display = "none"; 
-
-} else {
-
-//   const element = document.getElementById("mobile"); 
-
-// // Set the display property to "none"
-// element.style.display = "block"; 
-
-}
 
 signupForm.addEventListener('submit', async e => {
   e.preventDefault();
