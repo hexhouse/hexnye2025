@@ -183,9 +183,13 @@ button {
     color: #000000;
     padding-top: 0;
     margin-top: 0;
+    border-top: #ccc 4px solid;
+  border-right: #ccc 4px solid;
+  border-bottom: #777 4px solid;
+  border-left: #777 4px solid;
 }
 
-#countdown {
+#countdown, #solstice{
   font-size: 1.2em;
 
    
@@ -194,7 +198,11 @@ button {
     /* width: fit-content; */
     border-image: url(assets/timer.png) 100%;
     margin: 2em;
-   
+}
+
+#countdown {
+  margin-left: 7em;
+  margin-right: 7em;
 }
 
 #num {
@@ -389,7 +397,11 @@ button {
 
 <img src="assets/ca.png">
 
+<div id="solstice">
 
+</div>
+
+</div>
 <div id="countdown">
 
 </div>
@@ -437,13 +449,43 @@ function newYearCountdown() {
 
     if (distance < 0) {
       clearInterval(interval);
-      document.getElementById("countdown").innerHTML = "Happy New Year!";
+      document.getElementById("countdown").innerHTML = "Happy 2222000022225555";
     }
   };
 
   updateTimer(); // Call initially to avoid delay
   const interval = setInterval(updateTimer, 1);
 }
+
+function solsticeCountdown() {
+
+  const newYearDate = new Date("December 21, 2024 04:19:00 EST"); // Set New Year's Day in ET
+
+  const updateTimer = () => {
+    const now = new Date();
+    const distance = newYearDate.getTime() - now.getTime();
+
+    // const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    // const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    // const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("solstice").innerHTML = 
+      // `Time until New Year (ET): ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      `<span id="num">${distance}</span> <span class="dfont"><br>milliseconds</span><br>
+      TIL <span class="dfont">Solstice</span>`;
+
+    if (distance < 0) {
+      clearInterval(interval);
+      document.getElementById("solstice").innerHTML = "Happy solstice ☀";
+    }
+  };
+
+  updateTimer(); // Call initially to avoid delay
+  const interval = setInterval(updateTimer, 1);
+}
+
+solsticeCountdown();
 
 newYearCountdown();
 
