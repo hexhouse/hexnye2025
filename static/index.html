@@ -126,7 +126,27 @@ img {
     /* margin: 2em; */
     border-image: url(assets/timer.png) 100%;
     padding: 1em;
+    margin-top: .8em;
 }
+
+#coat {
+
+    border: none !important;
+    max-width: 26%;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  /* border: 2px dashed white; */
+}
+
+a {
+  color: blue;
+}
+a:visited {
+  color: blue;
+ 
+}
+
+
 
 
 .postscript {
@@ -136,6 +156,10 @@ img {
   text-align: center;
   padding-bottom: 3em;
   padding-top: 3em;
+  margin-top: .8em;
+  padding-left: 1em;
+  padding-right: 1em;
+ 
   border: 10px solid transparent;
    
     /* margin: 2em; */
@@ -153,6 +177,9 @@ button {
     height: 25px;
     position: relative;
     top: -7px;
+    background-color: lightgrey;
+    border-radius: 0%;
+    margin-left: .8em;
 }
 
 #countdown {
@@ -164,6 +191,7 @@ button {
     /* width: fit-content; */
     border-image: url(assets/timer.png) 100%;
     margin: 2em;
+   
 }
 
 #num {
@@ -193,6 +221,10 @@ button {
   max-width: 80%;
 }
 
+#coat {
+  max-width: 65%;
+}
+
 #desktop {
   display: none;
 }
@@ -212,6 +244,7 @@ button {
 
 #countdown {
   margin: 0em;
+  margin-top: 1em;
 }
 
 #email {
@@ -264,8 +297,8 @@ button {
 
 <div id="email">
 <form id=signupForm>
-  <label><span class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input></label>
-  <button class="dfont" type="submit">RSVP</button>
+  <label><span class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input><button class="dfont" type="submit">RSVP</button></label>
+  
 </form>
 <div id=sending>
   Sending…
@@ -277,13 +310,17 @@ button {
 <p class="smaller"><i>Send this page to your +1s so they can rsvp</i></p>
 </div>
 
-<img src="assets/ca.png"><br>
 <img src="assets/poster.gif">
 
 <p class="postscript">
   This website was made by sidney + melanie. Each time someone enters their email above it gets stored in a file on a private digitalocean server. We are gathering your emails so that we can write to you with more details about Hex Nye as they materialize and as time counts down. On 1-1-2025 all your emails in this file will be deleted. If you have any questions or would like to be part of organizing/performing, reach out to us at hexhousenyc@gmail.com ✜ 
-
-
+</p>
+<h1>Call for Coats!</h1> 
+<img id="coat" src="assets/coat.png">
+<p class="postscript">
+  
+  <!-- <h1>Call for coats!</h1> -->
+  This event is also a coat drive. Please bring your coats you no longer need so that they can be donated to <a href="https://nnccc.org/"><i>Nuestros Ninos Child Development Center</i></a> our local dropoff location.
 </p>
 <!-- <p id="desktop">
   &#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9201;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9201;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9201;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;<br>
@@ -342,6 +379,8 @@ button {
   &#9201;<br>
 
 </p> -->
+
+<img src="assets/ca.png">
 
 
 <div id="countdown">
