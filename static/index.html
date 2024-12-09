@@ -147,10 +147,18 @@ img {
   display: none;
 }
 
+button {
+  width: 3em;
+    font-size: .3em;
+    height: 25px;
+    position: relative;
+    top: -7px;
+}
+
 #countdown {
-font-size: 2em;
-    padding-top: 2em;
-    padding-bottom: 5em;
+  font-size: 1.2em;
+
+   
     border: 10px solid transparent;
     padding: 15px;
     /* width: fit-content; */
@@ -257,6 +265,7 @@ font-size: 2em;
 <div id="email">
 <form id=signupForm>
   <label><span class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input></label>
+  <button class="dfont" type="submit">RSVP</button>
 </form>
 <div id=sending>
   Sending…
@@ -272,9 +281,9 @@ font-size: 2em;
 <img src="assets/poster.gif">
 
 <p class="postscript">
-  This website was made by sidney + melanie. Each time someone enters their email above it gets stored in a file on a private digitalocean server. We are gathering your emails so that we can write to you with more details about Hex Nye as they materialize and as time counts down. On 1-1-2025 all your emails in this file will be deleted. If you have any questions or would like to be part of organizing/performing, reach out to us at hexhousenyc@gmail.com ✜
-  <br>
-  <br>
+  This website was made by sidney + melanie. Each time someone enters their email above it gets stored in a file on a private digitalocean server. We are gathering your emails so that we can write to you with more details about Hex Nye as they materialize and as time counts down. On 1-1-2025 all your emails in this file will be deleted. If you have any questions or would like to be part of organizing/performing, reach out to us at hexhousenyc@gmail.com ✜ 
+
+
 </p>
 <!-- <p id="desktop">
   &#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9201;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9201;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9201;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;&#9202;<br>
@@ -377,7 +386,8 @@ function newYearCountdown() {
 
     document.getElementById("countdown").innerHTML = 
       // `Time until New Year (ET): ${days}d ${hours}h ${minutes}m ${seconds}s`;
-      `TIME TIL <span class="dfont">2025:</span><span id="num"> <br>${distance}</span> <span class="dfont"><br>milliseconds</span>`;
+      `<span id="num">${distance}</span> <span class="dfont"><br>milliseconds</span><br>
+      TIL <span class="dfont">2025:</span>`;
 
     if (distance < 0) {
       clearInterval(interval);
