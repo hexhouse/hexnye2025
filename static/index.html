@@ -185,6 +185,8 @@ function makeCountdown(el, targetDate, onEnd) {
   const targetTime = +targetDate;
   const countNode = el.firstChild;
 
+  let animationFrame;
+
   const updateTimer = () => {
     const now = Date.now();
     const distance = targetTime - now;
@@ -194,9 +196,16 @@ function makeCountdown(el, targetDate, onEnd) {
     if (distance < 0) {
       onEnd();
     } else {
-      requestAnimationFrame(updateTimer);
+      animationFrame = requestAnimationFrame(updateTimer);
     }
   };
+
+  const obs = new IntersectionObserver(entries => {
+    cancelAnimationFrame(animationFrame);
+    if (entries[0].isIntersecting)
+      updateTimer();
+  });
+  obs.observe(el);
 
   updateTimer();
 }
