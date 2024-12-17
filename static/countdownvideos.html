@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="assets/asciinema-player.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>2222000022225555</title>
+<link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap">
+<style>
+
+#videoInput {
+  margin: 1em;
+  padding: 1em;
+  flex: 1;
+}
+
+#form {
+  display: flex;
+  margin: 0.5em 1em;
+}
+
+</style>
+</head>
+
+
+<body>
+  <h1><span class="dfont">Submit </span>&nbsp;<span><img id="timer-img" src="assets/timer.png"></span> <span span>HEXNYE</span></h1>
+  <p>videos of countdowns, measuring time, and time not existing<br>
+  ⏲⏲⏲⏲</p>
+  <div>add yours:</div>
+  <form id=form>
+    <input name=text id=videoInput></input><button class=dfont>Submit</button>
+  </form>
+  <ul id=videoSubmissions></ul>
+  <script type=module>
+
+    import WSConnection from '/lib/WSConnection.js';
+
+    const conn = new WSConnection(`${location.protocol == 'https:' ? 'wss' : 'ws'}://${location.host}/videoSubmissions`);
+    conn.onmessage = msg => {
+      const li = document.createElement('li');
+      li.textContent = msg.text;
+      videoSubmissions.insertBefore(li, videoSubmissions.firstElementChild);
+    }
+    conn.connect();
+
+    form.addEventListener('submit', async e => {
+      const button = form.querySelector('button');
+      e.preventDefault();
+      button.disabled = true;
+      try {
+        const body = new FormData(e.target);
+        videoInput.value = "";
+        await fetch("/submitVideo", {
+          method: "POST", body,
+        });
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+  </script>
+</body>

@@ -25,6 +25,12 @@ h1 {
   font-size: 2em;
 }
 
+#timer-img {
+  width: .8em;
+  padding-bottom: 0px;
+  padding: 0px;
+}
+
 .ornate {
   font-family: LaBorisette;
   font-size: .95em;
@@ -125,20 +131,26 @@ a:visited {
 }
 
 button {
+  margin: 0.25em;
   width: 3em;
-    font-size: .3em;
-    height: 25px;
-    position: relative;
-    top: -7px;
-    background-color: lightgrey;
-    border-radius: 0%;
-    margin-left: .8em;
-    color: #000000;
-    padding-top: 0;
-    margin-top: 0;
-    border-top: #ccc 4px solid;
+  font: inherit;
+  background-color: lightgrey;
+  border-radius: 0%;
+  color: #000000;
+  border-top: #ccc 4px solid;
   border-right: #ccc 4px solid;
   border-bottom: #777 4px solid;
   border-left: #777 4px solid;
 }
 
+#videoSubmissions {
+  padding: 0.5em;
+}
+
+#videoSubmissions li {
+  list-style: none;
+  text-align: left;
+  border-bottom: 1px solid white;
+  margin: 0;
+  padding: 0.25em;
+}
