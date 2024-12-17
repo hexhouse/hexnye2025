@@ -47,8 +47,6 @@ img {
 
 #countdown, #solstice{
   font-size: 1.2em;
-
-   
     border: 10px solid transparent;
     padding: 15px;
     /* width: fit-content; */
@@ -58,9 +56,6 @@ img {
 
 #countdown {
   margin-top: 1em;
-}
-
-#countdown {
   margin-left: 7em;
   margin-right: 7em;
 }
@@ -80,6 +75,46 @@ img {
     height: auto;
     max-width: 80%;
   }
+
+
+  input {
+    width: 200px;
+    padding: .2em;
+  }
+
+  #email-title {
+    font-size: .8em;
+  }
+
+  .postscript {
+    width: 85%;
+  }
+
+  .center-container {
+    width: 58vw;
+  }
+
+  #signupForm {
+    margin-top: 2em;
+  }
+
+
+  #countdown {
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+
+#coat {
+  max-width: 62%;
+}
+
+
+
+
+
+
 }
 
 </style>
@@ -115,7 +150,7 @@ img {
 
 <div id="email">
 <form id=signupForm>
-  <label><span class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input><button class="dfont" type="submit">RSVP</button></label>
+  <label><span id="email-title" class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input><button class="dfont" type="submit">RSVP</button></label>
   
 </form>
 <div id=sending>
@@ -147,14 +182,14 @@ img {
 <div id="solstice">
   <div id="num">---</div>
   <span class="dfont">milliseconds</span><br>
-  TIL <span class="dfont">Solstice</span>`;
+  TIL <span class="dfont">Solstice</span>
 </div>
 
 </div>
 <div id="countdown">
   <div id="num">---</div>
   <span class="dfont">milliseconds</span><br>
-  TIL <span class="dfont">2025:</span>`;
+  TIL <span class="dfont">2025:</span>
 </div>
 
 <script>
