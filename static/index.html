@@ -339,12 +339,16 @@ button {
 <img src="assets/ca.png">
 
 <div id="solstice">
-
+  <div id="num">---</div>
+  <span class="dfont">milliseconds</span><br>
+  TIL <span class="dfont">Solstice</span>`;
 </div>
 
 </div>
 <div id="countdown">
-
+  <div id="num">---</div>
+  <span class="dfont">milliseconds</span><br>
+  TIL <span class="dfont">2025:</span>`;
 </div>
 
 <script>
@@ -365,65 +369,33 @@ signupForm.addEventListener('submit', async e => {
   }
 });
 
-
-function newYearCountdown() {
-  const newYearDate = new Date("January 1, 2025 00:00:00 EST"); // Set New Year's Day in ET
+function makeCountdown(el, targetDate, onEnd) {
+  const targetTime = +targetDate;
+  const countNode = el.firstChild;
 
   const updateTimer = () => {
-    const now = new Date();
-    const distance = newYearDate.getTime() - now.getTime();
+    const now = Date.now();
+    const distance = targetTime - now;
 
-    // const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    // const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    // const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    // const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("countdown").innerHTML = 
-      // `Time until New Year (ET): ${days}d ${hours}h ${minutes}m ${seconds}s`;
-      `<span id="num">${distance}</span> <span class="dfont"><br>milliseconds</span><br>
-      TIL <span class="dfont">2025:</span>`;
+    countNode.nodeValue = distance;
 
     if (distance < 0) {
-      clearInterval(interval);
-      document.getElementById("countdown").innerHTML = "Happy 2222000022225555";
+      onEnd();
+    } else {
+      requestAnimationFrame(updateTimer);
     }
   };
 
-  updateTimer(); // Call initially to avoid delay
-  const interval = setInterval(updateTimer, 1);
+  updateTimer();
 }
 
-function solsticeCountdown() {
+makeCountdown(countdown.querySelector('#num'), new Date("January 1, 2025 00:00:00 EST"), () => {
+  document.getElementById("countdown").textContent = "Happy 2222000022225555";
+});
 
-  const newYearDate = new Date("December 21, 2024 04:19:00 EST"); // Set New Year's Day in ET
-
-  const updateTimer = () => {
-    const now = new Date();
-    const distance = newYearDate.getTime() - now.getTime();
-
-    // const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    // const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    // const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    // const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("solstice").innerHTML = 
-      // `Time until New Year (ET): ${days}d ${hours}h ${minutes}m ${seconds}s`;
-      `<span id="num">${distance}</span> <span class="dfont"><br>milliseconds</span><br>
-      TIL <span class="dfont">Solstice</span>`;
-
-    if (distance < 0) {
-      clearInterval(interval);
-      document.getElementById("solstice").innerHTML = "Happy solstice ☀";
-    }
-  };
-
-  updateTimer(); // Call initially to avoid delay
-  const interval = setInterval(updateTimer, 1);
-}
-
-solsticeCountdown();
-
-newYearCountdown();
+makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:00 EST"), () => {
+  document.getElementById("solstice").textContent = "Happy solstice ☀";
+});
 
 </script>
   <script src="assets/asciinema-player.min.js"></script>
