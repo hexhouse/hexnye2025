@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'LaBorisette';
+    src: url('assets/LaBorisette-Regular.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Fantome';
+    src: url('assets/Fantome-Regular.otf') format("opentype");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Skanaus;
+  /* font-family: LaBorisette; */
+  /* font-family: Fantome; */
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.ornate {
+  font-family: LaBorisette;
+  font-size: .95em;
+}
+
+.asciinema-player-theme-bla {
+  --term-color-foreground: #eceff4;
+  --term-color-background: #000000;
+
+  --term-color-0: #000000;
+  --term-color-1: #bf616a;
+  --term-color-2: #a3be8c;
+  --term-color-3: #ffffff;
+  --term-color-4: #81a1c1;
+  --term-color-5: #b48ead;
+  --term-color-6: #88c0d0;
+  --term-color-7: #eceff4;
+}
+
+    @font-face {
+      font-family: Skanaus;
+      src: url("assets/Skanaus-Display.otf") format("opentype");
+    }
+    
+    body:not([data-phase="start"]) #signupForm,
+    body:not([data-phase="sending"]) #sending,
+    body:not([data-phase="sent"]) #afterSignup {
+      display: none;
+    }
+
+    body {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: 2em;
+  width: 100%;
+}
+
+p {
+  /* font-family:  "Times"; */
+  font-family:  "Garamond, Georgia, serif";
+  font-size: .7em;
+  
+}
+
+.smaller {
+ font-size: .5em;
+
+}
+
+input {
+  background: none;
+  padding: .5em;
+    font-family: Skanaus;
+    font-size: .3em;
+    height: .8em;
+    border: 2px dashed white;
+    font: inherit;
+    font-size: 0.5em;
+    color: inherit;
+}
+
+
+#borderimg { 
+  border: 10px solid transparent;
+  padding: 15px;
+  border-image: url(assets.timer.png) 30 round;
+}
+
+.dfont {
+  font-family: "Pinyon Script";
+}
+
+a {
+  color: blue;
+}
+a:visited {
+  color: blue;
+ 
+}
+
+.postscript {
+  width: 50%;
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 3em;
+  padding-top: 3em;
+  margin-top: .8em;
+  padding-left: 1em;
+  padding-right: 1em;
+ 
+  border: 10px solid transparent;
+   
+    /* margin: 2em; */
+    border-image: url(assets/timer.png) 100%;
+  
+}
+
+button {
+  width: 3em;
+    font-size: .3em;
+    height: 25px;
+    position: relative;
+    top: -7px;
+    background-color: lightgrey;
+    border-radius: 0%;
+    margin-left: .8em;
+    color: #000000;
+    padding-top: 0;
+    margin-top: 0;
+    border-top: #ccc 4px solid;
+  border-right: #ccc 4px solid;
+  border-bottom: #777 4px solid;
+  border-left: #777 4px solid;
+}
+
