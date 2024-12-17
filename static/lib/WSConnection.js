@@ -16,6 +16,7 @@ export default class WSConnection {
     };
     this.ws.onopen = e => {
       this.open = true;
+      this.onopen && this.onopen();
     };
     this.ws.onmessage = e => {
       this.onmessage((e.data instanceof ArrayBuffer || e.data instanceof Blob) ? e.data : JSON.parse(e.data));

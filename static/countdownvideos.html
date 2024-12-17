@@ -12,12 +12,20 @@
 #videoInput {
   margin: 1em;
   padding: 1em;
+  width: 100%;
   flex: 1;
 }
 
 #form {
   display: flex;
   margin: 0.5em 1em;
+}
+
+@media screen and (max-width : 480px) {
+  #form {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 </style>
@@ -38,6 +46,11 @@
     import WSConnection from '/lib/WSConnection.js';
 
     const conn = new WSConnection(`${location.protocol == 'https:' ? 'wss' : 'ws'}://${location.host}/videoSubmissions`);
+    conn.onopen = () => {
+      while (videoSubmissions.firstChild)
+        videoSubmissions.removeChild(videoSubmissions.firstChild);
+    };
+
     conn.onmessage = msg => {
       const li = document.createElement('li');
       li.textContent = msg.text;
