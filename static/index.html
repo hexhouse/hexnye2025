@@ -75,7 +75,8 @@ h1 {
 }
 
 .center-container {
-  width: 25%;
+  width: 25vw;
+  height: 25vw;
   display: block;
   margin: auto;
 }
@@ -301,22 +302,6 @@ button {
 <!-- <h1>22222⏲⏲⏲⏲⏲2222255555</h1> -->
 <div class="center-container">
   <div id="demo"></div>
-  <script src="assets/asciinema-player.min.js"></script>
-  <script>
-    AsciinemaPlayer.create('assets/10.cast', document.getElementById('demo'), {
-      speed: 2,
-      idleTimeLimit: 1,
-      autoPlay: true,
-      loop: true,
-      preload: true,
-      controls: false,
-      // terminalFontSize: "big",
-      // fit: "both",
-      startAt: 4,
-      theme: 'bla',
-
-    });
-  </script>
 </div>
 
 
@@ -446,3 +431,21 @@ solsticeCountdown();
 newYearCountdown();
 
 </script>
+  <script src="assets/asciinema-player.min.js"></script>
+  <script>
+    AsciinemaPlayer.create('assets/10.cast', document.getElementById('demo'), {
+      speed: 2,
+      idleTimeLimit: 1,
+      autoPlay: true,
+      loop: true,
+      preload: true,
+      controls: false,
+      cols: 57,
+      rows: 26,
+      // terminalFontSize: "big",
+      // fit: "both",
+      startAt: 4,
+      theme: 'bla',
+
+    });
+  </script>
