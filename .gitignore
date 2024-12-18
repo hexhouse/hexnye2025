@@ -1,3 +1,4 @@
 data.json
 videoSubmissions.json
 .DS_Store
+/secrets.json

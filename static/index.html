@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<head></head>
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="assets/asciinema-player.css" />
@@ -9,11 +9,19 @@
   <link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap">
   <style>
 
+body:not([data-phase="start"]):not([data-phase="pay"]) #signupForm,
+body:not([data-phase="pay"]) #payment-element,
+body:not([data-phase="sending"]) #sending,
+body:not([data-phase="sent"]) #afterSignup {
+  display: none;
+}
+
 .center-container {
   width: 25vw;
   height: 25vw;
   display: block;
   margin: auto;
+  overflow: hidden;
 }
 
 #demo {
@@ -22,6 +30,11 @@
 
 #signupForm {
   font-size: 2em;
+}
+
+#signupForm button {
+  font-size: 2rem;
+  width: auto;
 }
 
 img {
@@ -61,8 +74,6 @@ img {
 }
 
 #email {
-  border: 10px solid transparent;
-  padding: 1em;
   border-image: url(assets/timer.png) 100%;
   margin: 1em;
   margin-top: 0em;
@@ -150,8 +161,10 @@ img {
 
 <div id="email">
 <form id=signupForm>
-  <label><span id="email-title" class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input><button class="dfont" type="submit">RSVP</button></label>
-  
+  <label><span id="email-title" class="dfont">Your&nbsp;Email:</span> <input name=email type=email required></input></label>
+  <div id="payment-element"></div>
+  <button class="dfont">Pay $<span id=price>…</span> and RSVP</button>
+  <input type=hidden name=paymentIntent></input>
 </form>
 <div id=sending>
   Sending…
@@ -199,20 +212,6 @@ img {
 <script>
 
 
-
-signupForm.addEventListener('submit', async e => {
-  e.preventDefault();
-  document.body.dataset.phase = 'sending';
-  try {
-    await fetch("/register", {
-      method: 'POST',
-      body: new FormData(e.target),
-    });
-    document.body.dataset.phase = 'sent';
-  } catch {
-    document.body.dataset.phase = 'start';
-  }
-});
 
 function makeCountdown(el, targetDate, onEnd) {
   const targetTime = +targetDate;
@@ -269,4 +268,105 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
       theme: 'bla',
 
     });
+  </script>
+  <script type=module>
+
+    let stripe, elements, paymentElement;
+
+    let stripeKey;
+
+    const updatePrice = async () => {
+      const paymentDeets = await (await fetch("/pay/deets")).json();
+      price.textContent = paymentDeets.price;
+      stripeKey = paymentDeets.stripe_key;
+    };
+
+    updatePrice();
+
+    const loadStripe = async () => {
+      const scriptEl = document.createElement('script');
+      const loadPromise = new Promise(r => scriptEl.onload = r);
+      scriptEl.src = "https://js.stripe.com/v3/";
+      document.body.appendChild(scriptEl);
+      await loadPromise;
+      stripe = Stripe(stripeKey);
+
+      elements = stripe.elements({
+        mode: 'payment',
+        amount: 1099,
+        currency: 'usd',
+        appearance: {
+          theme: 'night',
+        },
+      });
+      paymentElement = elements.create('payment', { layout: 'accordion'});
+      paymentElement.mount('#payment-element');
+    };
+
+    signupForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const onError = err => {
+        console.log(error);
+        document.body.dataset.phase = 'pay';
+        submitBtn.disabled = false;
+      };
+
+      if (document.body.dataset.phase == 'pay') {
+        const submitBtn = signupForm.querySelector('button');
+        if (submitBtn.disabled)
+          return;
+        submitBtn.disabled = true;
+
+        {
+          const {error} = await elements.submit();
+          if (error)
+            return onError(error);
+        }
+
+        document.body.dataset.phase = 'sending';
+
+        let paymentIntent;
+        try {
+          paymentIntent = await (await fetch("/pay/new", {
+            method: 'POST',
+            body: new FormData(e.target),
+          })).json();
+        } catch (e) {
+          return onError(error);
+        }
+
+        signupForm.elements.paymentIntent.value = paymentIntent.client_secret;
+
+        await fetch("/register", {
+          method: 'POST',
+          body: new FormData(signupForm),
+        });
+
+        {
+          const {error} = await stripe.confirmPayment({
+            elements, 
+            clientSecret: paymentIntent.client_secret,
+            confirmParams: {
+              return_url: new URL('/?return_from_payment', location).href,
+            },
+            redirect: "if_required",
+          });
+          if (error)
+            return onError(error);
+        }
+        
+        document.body.dataset.phase = 'sent';
+        afterSignup.scrollIntoView({
+          block: 'center',
+        });
+
+        return;
+      }
+
+      document.body.dataset.phase = 'sending';
+      await loadStripe();
+      document.body.dataset.phase = 'pay';
+    });
+
   </script>

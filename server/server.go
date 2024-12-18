@@ -14,6 +14,9 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/s4y/reserve"
+
+	"github.com/stripe/stripe-go/v81"
+	"github.com/stripe/stripe-go/v81/paymentintent"
 )
 
 type connList struct {
@@ -92,6 +95,26 @@ func dump(f *persistFile) ([]interface{}, error) {
 }
 
 func main() {
+
+	var secrets struct {
+		ServerSecret string `json:"server_secret"`
+		ClientSecret string `json:"client_secret"`
+	}
+
+	{
+		file, err := os.Open("../secrets.json")
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer file.Close()
+		decoder := json.NewDecoder(file)
+		if err := decoder.Decode(&secrets); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	stripe.Key = secrets.ServerSecret
+
 	httpAddr := flag.String("http", "127.0.0.1:8025", "Listening address")
 	flag.Parse()
 	fmt.Printf("http://%s/\n", *httpAddr)
@@ -111,10 +134,11 @@ func main() {
 		}
 
 		persist(rsvpFile, struct {
-			Timestamp string `json:"timestamp"`
-			IP        string `json:"ip"`
-			Email     string `json:"email"`
-		}{time.Now().UTC().String(), r.RemoteAddr, r.FormValue("email")})
+			Timestamp     string `json:"timestamp"`
+			IP            string `json:"ip"`
+			Email         string `json:"email"`
+			PaymentIntent string `json:"paymentIntent"`
+		}{time.Now().UTC().String(), r.RemoteAddr, r.FormValue("email"), r.FormValue("paymentIntent")})
 	})
 
 	http.HandleFunc("/submitVideo", func(w http.ResponseWriter, r *http.Request) {
@@ -145,6 +169,47 @@ func main() {
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 	}
+
+	//
+	// Payment stuff!
+	//
+
+	http.HandleFunc("/pay/deets", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
+		json.NewEncoder(w).Encode(struct {
+			Price     string `json:"price"`
+			StripeKey string `json:"stripe_key"`
+		}{fmt.Sprintf("%.2f", float64(*paymentIntentParams.Amount)/100.0), secrets.ClientSecret})
+	})
+
+	http.HandleFunc("/pay/new", func(w http.ResponseWriter, r *http.Request) {
+		// Not expecting any data, just don't want to trigger this casually
+		if r.Method != http.MethodPost {
+			http.Error(w, "", http.StatusMethodNotAllowed)
+			return
+		}
+
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
+		result, err := paymentintent.New(paymentIntentParams)
+		if err != nil {
+			log.Println(err)
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(struct {
+			ClientSecret string `json:"client_secret"`
+			Price        int64  `json:"price"`
+		}{result.ClientSecret, result.Amount})
+	})
+
+	//
+	// Video submissions
+	//
 
 	http.HandleFunc("/videoSubmissions", func(w http.ResponseWriter, r *http.Request) {
 		conn, err := upgrader.Upgrade(w, r, nil)
