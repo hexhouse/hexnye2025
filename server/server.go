@@ -116,6 +116,7 @@ func main() {
 	stripe.Key = secrets.ServerSecret
 
 	httpAddr := flag.String("http", "127.0.0.1:8025", "Listening address")
+	production := flag.Bool("p", false, "Production (disables automatic hot reloading)")
 	flag.Parse()
 	fmt.Printf("http://%s/\n", *httpAddr)
 
@@ -126,7 +127,14 @@ func main() {
 
 	upgrader := websocket.Upgrader{}
 
-	http.Handle("/", reserve.FileServer("../static"))
+	if *production {
+		fileServer := http.FileServer(http.Dir("../static"))
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			fileServer.ServeHTTP(w, r)
+		})
+	} else {
+		http.Handle("/", reserve.FileServer(http.Dir("../static")))
+	}
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, "", http.StatusMethodNotAllowed)
