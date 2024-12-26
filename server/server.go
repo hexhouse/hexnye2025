@@ -185,10 +185,10 @@ func main() {
 	http.HandleFunc("/pay/deets", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 
-		json.NewEncoder(w).Encode(struct {
-			Price     string `json:"price"`
-			StripeKey string `json:"stripe_key"`
-		}{fmt.Sprintf("%.2f", float64(*paymentIntentParams.Amount)/100.0), secrets.ClientSecret})
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"priceRange": priceRange,
+			"stripeKey":  secrets.ClientSecret,
+		})
 	})
 
 	http.HandleFunc("/pay/new", func(w http.ResponseWriter, r *http.Request) {
@@ -200,7 +200,15 @@ func main() {
 
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 
-		result, err := paymentintent.New(paymentIntentParams)
+		// Calculate the current price server-side! Don't trust the client :-)
+		now := time.Now()
+		where := float64(now.UnixMilli()-priceRange.Start.Time) / float64(priceRange.End.Time-priceRange.Start.Time)
+		interpPrice := int64(float64(priceRange.Start.Price) + float64(priceRange.End.Price-priceRange.Start.Price)*where)
+
+		params := *paymentIntentParams
+		params.Amount = stripe.Int64(interpPrice)
+
+		result, err := paymentintent.New(&params)
 		if err != nil {
 			log.Println(err)
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

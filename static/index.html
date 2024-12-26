@@ -273,15 +273,27 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
   <script type=module>
 
     let stripe, elements, paymentElement;
-
     let stripeKey;
+    let quotedPrice;
+
+    let paymentDeets = fetch("/pay/deets").then(r => r.json());
+
+    paymentDeets.then(deets => {
+      stripeKey = deets.stripeKey;
+    });
 
     const updatePrice = async () => {
-      const paymentDeets = await (await fetch("/pay/deets")).json();
-      price.textContent = paymentDeets.price;
-      stripeKey = paymentDeets.stripe_key;
+      const { priceRange } = await paymentDeets;
+      const { start, end } = priceRange;
+
+      const where = (Date.now() - start.time) / (end.time - start.time);
+      const interpPrice = Math.floor(start.price + (end.price - start.price) * where);
+
+      quotedPrice = interpPrice;
+      price.textContent = (interpPrice / 100).toFixed(2);
     };
 
+    setInterval(updatePrice, 1000);
     updatePrice();
 
     const loadStripe = async () => {
@@ -335,6 +347,11 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
           })).json();
         } catch (e) {
           return onError(error);
+        }
+
+        // Bail if the server-side price is > 5¢ away from our last-displayed price. Don't trust the server :-)
+        if (Math.abs(paymentIntent.price - quotedPrice) > 5) {
+          return onError(`Client side price (${quotedPrice}) too different from server-side price (${paymentIntent.price})`);
         }
 
         signupForm.elements.paymentIntent.value = paymentIntent.client_secret;
