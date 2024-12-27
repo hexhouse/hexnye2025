@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math"
 	"net"
 	"net/http"
 	"os"
@@ -203,6 +204,7 @@ func main() {
 		// Calculate the current price server-side! Don't trust the client :-)
 		now := time.Now()
 		where := float64(now.UnixMilli()-priceRange.Start.Time) / float64(priceRange.End.Time-priceRange.Start.Time)
+		where = math.Pow(where, priceRange.Exp)
 		interpPrice := int64(float64(priceRange.Start.Price) + float64(priceRange.End.Price-priceRange.Start.Price)*where)
 
 		params := *paymentIntentParams

@@ -284,9 +284,9 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
 
     const updatePrice = async () => {
       const { priceRange } = await paymentDeets;
-      const { start, end } = priceRange;
+      const { start, end, exp } = priceRange;
 
-      const where = (Date.now() - start.time) / (end.time - start.time);
+      const where = Math.pow((Date.now() - start.time) / (end.time - start.time), exp);
       const interpPrice = Math.floor(start.price + (end.price - start.price) * where);
 
       quotedPrice = interpPrice;
