@@ -320,7 +320,7 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
       e.preventDefault();
 
       const onError = err => {
-        console.log(error);
+        console.log(err);
         document.body.dataset.phase = 'pay';
         submitBtn.disabled = false;
       };
