@@ -319,6 +319,7 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
     signupForm.addEventListener('submit', async e => {
       e.preventDefault();
 
+      const submitBtn = signupForm.querySelector('button');
       const onError = err => {
         console.log(err);
         document.body.dataset.phase = 'pay';
@@ -326,7 +327,6 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
       };
 
       if (document.body.dataset.phase == 'pay') {
-        const submitBtn = signupForm.querySelector('button');
         if (submitBtn.disabled)
           return;
         submitBtn.disabled = true;
