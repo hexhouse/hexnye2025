@@ -290,6 +290,8 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
       const interpPrice = Math.floor(start.price + (end.price - start.price) * where);
 
       quotedPrice = interpPrice;
+      if (elements)
+        elements.update({ amount: quotedPrice });
       price.textContent = (interpPrice / 100).toFixed(2);
     };
 
@@ -306,7 +308,7 @@ makeCountdown(solstice.querySelector('#num'), new Date("December 21, 2024 04:19:
 
       elements = stripe.elements({
         mode: 'payment',
-        amount: 1099,
+        amount: quotedPrice,
         currency: 'usd',
         appearance: {
           theme: 'night',
