@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/assets/asciinema-player.css" />
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <title>2222000022225555</title>
+  <link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap">
+  <style>
+    h1 {
+      font-size: 2.5em;
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+
+    #timer-img {
+      width: .8em;
+      padding-bottom: 0px;
+      padding: 0px;
+    }
+
+    .ornate {
+      font-family: LaBorisette;
+      font-size: .95em;
+    }
+
+    .asciinema-player-theme-bla {
+      --term-color-foreground: #eceff4;
+      --term-color-background: #000000;
+
+      --term-color-0: #000000;
+      --term-color-1: #bf616a;
+      --term-color-2: #a3be8c;
+      --term-color-3: #ffffff;
+      --term-color-4: #81a1c1;
+      --term-color-5: #b48ead;
+      --term-color-6: #88c0d0;
+      --term-color-7: #eceff4;
+    }
+
+    @font-face {
+      font-family: Skanaus;
+      src: url("../assets/Skanaus-Display.otf") format("opentype");
+    }
+
+    body {
+      background-color: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      text-align: center;
+      font-size: 2em;
+      width: 100%;
+    }
+
+    p {
+      font-family: "Garamond, Georgia, serif";
+      font-size: .7em;
+      width: 70%;
+      display: block;
+      margin: auto;
+      margin-top: .8em;
+
+    }
+
+    h3 {
+      margin: 0;
+    }
+
+    .smaller {
+      font-size: .7em;
+    }
+
+    #prompts-container {
+      border-image: url(../assets/timer.png) 100%;
+      text-align: left;
+      width: 47%;
+      padding-left: 1em;
+      display: block;
+      margin: auto;
+      margin-bottom: 6em;
+      margin-top: 5em;
+    }
+
+    .prompt {
+      margin-top: 6em;
+    }
+
+    #prompt-title {
+      font-family: 'Diolce';
+      /* font-family: 'C4'; */
+      font-size: .8em;
+      color: rgb(143, 142, 142);
+    }
+
+    input {
+      all: unset;
+    }
+
+    input {
+      background: none;
+      padding: .5em;
+      font-family: 'Arial' !important;
+      /* font-family: "Garamond, Georgia, serif" !important; */
+      font-size: .6em !important;
+      height: .8em;
+      border-bottom: thin white dotted;
+      margin: 30px;
+      margin-right: 10px;
+      margin-top: 0px;
+      font: inherit;
+      font-size: 0.5em;
+      color: rgb(212, 212, 212);
+      width: 53%;
+    }
+
+    input::placeholder {
+      font-weight: bold;
+      opacity: .8;
+      font-style: italic;
+      font-family: 'skanus';
+      font-size: 1em;
+    }
+
+
+    button {
+      margin: 0.25em;
+      width: 2.4em;
+      font-size: .8em !important;
+      height: 1.2em;
+      font: inherit;
+      background-color: lightgrey;
+      border-radius: 0%;
+      color: #000000 !important;
+      border-top: #ccc 4px solid;
+      border-right: #ccc 4px solid;
+      border-bottom: #777 4px solid;
+      border-left: #777 4px solid;
+    }
+
+
+    #borderimg {
+      border: 10px solid transparent;
+      padding: 15px;
+      border-image: url(../assets.timer.png) 30 round;
+    }
+
+    .dfont {
+      font-family: "Pinyon Script";
+      color: rgb(143, 142, 142);
+      font-size: 1.3em;
+    }
+
+    h1 .dfont {
+      color: white;
+      font-size: inherit;
+    }
+
+    a {
+      color: blue;
+    }
+
+    a:visited {
+      color: blue;
+
+    }
+
+    /* .postscript {
+  width: 50%;
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 3em;
+  padding-top: 3em;
+  margin-top: .8em;
+  padding-left: 1em;
+  padding-right: 1em;
+ 
+  border: 10px solid transparent;
+    border-image: url(../assets/timer.png) 100%;
+} */
+
+
+    .center-container {
+      width: 25vw;
+      height: 25vw;
+      display: block;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    #demo {
+      padding-left: 7px;
+    }
+
+
+    img {
+      height: auto;
+      max-width: 30%;
+      filter: grayscale(40%);
+      padding-bottom: 1em;
+      border: 10px solid transparent;
+      padding: 15px;
+      /* margin: 2em; */
+      border-image: url(../assets/timer.png) 100%;
+      padding: 1em;
+      margin-top: .8em;
+    }
+
+
+
+    /* #house {
+  width: 5%;
+} */
+
+    @media screen and (max-width : 480px) {
+
+
+      p {
+        font-size: 16px;
+        width: 88%;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .dfont {
+        font-size: 1em;
+      }
+
+      #prompts-container {
+        width: 86%;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 3em;
+      }
+
+      .prompt {
+        margin-top: 1em !important;
+      }
+
+      #prompt-title {
+        font-size: 1em;
+        color: rgb(181, 180, 180);
+      }
+
+
+      img {
+        height: auto;
+        max-width: 80%;
+      }
+
+      input {
+        margin: 5px;
+        margin-top: 15px;
+        width: 87%;
+      }
+
+      input::placeholder {
+      font-size: .8em;
+    }
+
+      button {
+        font-size: .8em !important;
+        width: 2em;
+        /* padding: 10px; */
+      }
+
+      #prompt-title {
+        font-size: .7em;
+      }
+
+
+      .center-container {
+        width: 58vw;
+        height: 30vh;
+      }
+
+
+    }
+  </style>
+</head>
+
+
+<body data-phase=start>
+  <h1>
+    <span class="dfont">Confetti </span>&nbsp;<span><img id="timer-img" src="../assets/timer.png"></span><span
+      span> Kiosk</span>
+  </h1>
+
+  <h3 class="dfont">Write to release</h3>
+
+
+  <p>
+    Your responses are printed live onto confetti and will be released from the ceiling in <span id="countdown"><span
+        id="number-mili">X</span></span>&nbsp;miliseconds.
+    <br>
+    Enter as many responses as you wish. They will all be printed and sometimes visible on the screens.
+  </p>
+
+
+  <div id="prompts-container">
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">What is IN for 2025?</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">What is OUT for 2025?</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">What do you wish for others in the new year?</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">Which five words represent your last year?</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">A secret you have not told anyone this year:</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">What are you releasing tonight?</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <form class=prompt>
+      <label>
+        <span id="prompt-title">What are you inviting in tonight?</span>
+        <br>
+        <input name=reply autocomplete=off type="text"></input>
+      </label>
+      <button class="dfont">Print</button>
+    </form>
+
+    <!-- <div id=sending>
+  Sending…
+</div> -->
+    <!-- <div id=afterSignup>
+  Thank you for your <span class="dfont">RSVP.<br>You will receive an email soon. </span>&nbsp;<span><img id="timer-img" src="../assets/timer.png"></span>
+</div> -->
+
+  </div>
+
+
+
+
+  <br>
+
+
+
+  </div>
+  <div class="center-container">
+    <div id="demo"></div>
+  </div>
+
+  <img id="timer-img" src="../assets/timer.png">
+  <br><br>
+
+  <script src="../assets/asciinema-player.min.js"></script>
+  <script>
+    AsciinemaPlayer.create('../assets/10.cast', document.getElementById('demo'), {
+      speed: 2,
+      idleTimeLimit: 1,
+      autoPlay: true,
+      loop: true,
+      preload: true,
+      controls: false,
+      cols: 57,
+      rows: 26,
+      // terminalFontSize: "big",
+      // fit: "both",
+      startAt: 4,
+      theme: 'bla',
+
+    });
+  </script>
+  <script>
+
+
+    async function getPromptResponse(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const prompt = form.querySelector('#prompt-title').textContent;
+      const input = form.elements.reply;
+      const reply = input.value;
+
+      if (!reply)
+        return;
+
+      const body = new FormData();
+      body.set('prompt', prompt);
+      body.set('reply', reply);
+
+      await fetch("submitConfetti", {
+        method: "POST", body,
+      });
+
+      // Clear the input box
+      input.value = '';
+
+      // Temporarily display "thank you" in the input box
+      const originalPlaceholder = input.placeholder;
+      input.placeholder = 'Thank you. Your Response was recorded.';
+
+      // Set a timeout to clear the "thank you" message after seconds
+      setTimeout(() => {
+        input.placeholder = originalPlaceholder;
+      }, 1600);
+    }
+
+    for (const form of document.querySelectorAll('form.prompt'))
+      form.addEventListener('submit', getPromptResponse);
+
+    function makeCountdown(el, targetDate, onEnd) {
+      const targetTime = +targetDate;
+      const countNode = el.firstChild;
+
+      let animationFrame;
+
+      const updateTimer = () => {
+        const now = Date.now();
+        const distance = targetTime - now;
+
+        countNode.nodeValue = distance;
+
+        if (distance < 0) {
+          onEnd();
+        } else {
+          animationFrame = requestAnimationFrame(updateTimer);
+        }
+      };
+
+      const obs = new IntersectionObserver(entries => {
+        cancelAnimationFrame(animationFrame);
+        if (entries[0].isIntersecting)
+          updateTimer();
+      });
+      obs.observe(el);
+
+      updateTimer();
+    }
+
+    makeCountdown(countdown.querySelector('#number-mili'), new Date("January 1, 2025 00:00:00 EST"), () => {
+      document.getElementById("countdown").textContent = "[Time does not exist]";
+    });
+
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function randomizeFormElements(containerId) {
+      const container = document.getElementById(containerId);
+      const elementsArray = Array.from(container.children);
+      const shuffledArray = shuffle(elementsArray);
+
+      // Clear the container and append the shuffled elements
+      container.innerHTML = '';
+      shuffledArray.forEach(element => container.appendChild(element));
+    }
+
+    // Randomize the form elements within the 'prompts-container' div on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      randomizeFormElements('prompts-container');
+    });
+
+
+               // Time in milliseconds (2 minutes)
+       const inactivityTimeLimit = 2 * 60 * 1000;
+        let inactivityTimer;
+
+        // Function to reset the timer
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                location.reload();
+            }, inactivityTimeLimit);
+        }
+
+        // Events that indicate user activity
+        const events = ['mousemove', 'keydown', 'scroll', 'click'];
+
+        // Add event listeners for all the events
+        events.forEach(event => {
+            window.addEventListener(event, resetInactivityTimer);
+        });
+
+        // Initialize the timer when the page loads
+        resetInactivityTimer();
+  </script>

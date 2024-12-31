@@ -8,6 +8,16 @@
     src: url('assets/Fantome-Regular.otf') format("opentype");
 }
 
+@font-face {
+  font-family: 'Diolce';
+  src: url('../assets/Diolce-Regular.otf') format("opentype");
+}
+
+@font-face {
+  font-family: 'C4';
+  src: url('../assets/C4v.4-Regular.otf') format("opentype");
+}
+
 html,
 body {
   margin: 0;
